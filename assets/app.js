@@ -12,26 +12,29 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 
-// button to add new train
+// onclick button to add new train
 $("#submitButton").on("click", function (event) {
     event.preventDefault();
-    // Grabs user input
+    // var now = moment();
+    // console.log(now);
+
+    // Takes user input
     var trainName = $("#trainName").val().trim();
     var trainDestination = $("#trainDestination").val().trim();
+    var firstTrain = $("#firstTrain").val().trim();
     var trainFrequency = $("#trainFrequency").val().trim();
 
-    // var trainFrequency = moment($("#trainFrequency").val().trim(), "DD/MM/YY").format("X");
+    console.log(trainFrequency);
 
-    // console.log(trainName);
-    // console.log(trainDestination);
-    // console.log(trainFrequency);
+//convert firstTrain time to moment format
+    // var trainTime = moment(firstTrain, "h:mm a", false).format("MMMM DD YYYY, h:mm:ss a");
 
-
-    // Creates local "temporary" object for holding employee data
+    // console.log(trainTime);
     var newTrain = {
         "Name": trainName,
         "Destination": trainDestination,
-        "Frequency": trainFrequency
+        "Frequency": trainFrequency,
+        "startTime": firstTrain
     };
 
     // Uploads employee data to the database
@@ -43,7 +46,9 @@ $("#submitButton").on("click", function (event) {
     // Clears all of the text-boxes
     $("#trainName").val("");
     $("#trainDestination").val("");
+    $("#firstTrain").val("");
     $("#trainFrequency").val("");
+
 });
 
 
@@ -52,13 +57,44 @@ database.ref("/trains").on("child_added", function (childSnapshot, prevChildKey)
     var newChild = (childSnapshot.val());
     console.log(newChild);
 
+    var trainTime = moment(newChild.startTime, "h:mm a", false).format("MM DD YYYY, h:mm:ss a");
+
+    var minutes = moment(trainTime).minutes();
+
+    console.log(minutes);
+    console.log(newChild.Frequency);
+
+    var difference = moment().diff(minutes,"minutes");
+    console.log(difference);
+
+    var remainder = difference % newChild.Frequency;
+    console.log(remainder);
+
+    var remainingMinutes = newChild.Frequency - remainder;
+    console.log(remainingMinutes);
+
+    var finalTime = moment().add(remainingMinutes, "m").format("hh:mm a");
+    console.log(finalTime);
+
+    // var st = newChild.startTime;
+    // console.log(st);
+
+    // var timeSplit = moment(st).minutes();
+    // console.log(timeSplit);
+
+
+
+
+
+    //trainTime to minutes
+    // when in minutes, subtract trainTime diff function - subtract frequency from current time = minute to next train
+
+
+
     // var currentName = childSnapshot.val().name;
     // var currentDestination = childSnapshot.val().destination;
     // var currentFrequency = childSnapshot.val().frequency;
 
-
-    // Prettify the employee start
-    // var empStartPretty = moment.unix(empStart).format("MM/DD/YY");
 
     // Calculate the months worked using hardcore math
     // To calculate the months worked
@@ -71,7 +107,7 @@ database.ref("/trains").on("child_added", function (childSnapshot, prevChildKey)
 
     // Add each train's data into the table
     $("#trainTable").append("<tr><td>" + newChild.Name + "</td><td>" + newChild.Destination + "</td><td>" +
-        newChild.Frequency + "</td><td>");
+        newChild.Frequency + "</td><td>" + finalTime + "</td><td>" + remainingMinutes + "</td>");
 });
 
 

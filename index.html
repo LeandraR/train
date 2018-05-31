@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <div class="row justify-content-center">
-        <div class="col-md-12 justify-content-center">
-            <div class="jumbotron jumbotron-fluid">
-                <div class="container">
-                    <h1 class="display-3">Train Schedule</h1>
-                    <p class="lead">All aboard!</p>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron jumbotron-fluid ">
+                <div class="container justify-content-center">
+                    <h1 class="display-3 text-center">Train Schedule</h1>
+                    <p class="lead text-center">All aboard!</p>
                     <hr class="my-2">
                 </div>
             </div>
@@ -24,8 +24,7 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
+        <div class="col-md-10 col-md-offset-1">
             <table class="table">
                 <thead>
                     <tr>
@@ -43,27 +42,33 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="trainName">Train Name</label>
-                <input type="text" name="trainName" id="trainName" class="form-control" placeholder="" aria-describedby="helpId">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="card">
+                <h2 class="card-header">Add a Train</h2>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="trainName">Train Name</label>
+                        <input type="text" name="trainName" id="trainName" class="form-control" placeholder="" aria-describedby="helpId">
 
-            <label for="trainDestination">Train Destination</label>
-            <input type="text" name="trainDestination"
-                id="trainDestination" class="form-control" placeholder="" aria-describedby="helpId">
+                    <label for="trainDestination">Train Destination</label>
+                    <input type="text" name="trainDestination"
+                        id="trainDestination" class="form-control" placeholder="" aria-describedby="helpId">
+                    <label for="firstTrain">First Train Time (HH:MM - Military time)</label>
+                    <input type="text" name="firstTrain" id="firstTrain" class="form-control" placeholder="" aria-describedby="helpId">
 
-            <label for="trainFrequency">Train Frequency (min)</label>
-            <input type="text" name="trainFrequency"
-                id="trainFrequency" class="form-control" placeholder="" aria-describedby="helpId">
+                    <label for="trainFrequency">Train Frequency (min)</label>
+                    <input type="text" name="trainFrequency"
+                        id="trainFrequency" class="form-control" placeholder="" aria-describedby="helpId">
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
         </div>
     </div>
 
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
